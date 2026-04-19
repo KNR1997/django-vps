@@ -3,21 +3,22 @@ version: '3.8'
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
+    restart: always
     ports:
       - "8000:8000"
     depends_on:
       - db
-    environment:
-      POSTGRES_NAME: mydb
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_HOST: db
+    env_file:
+      - .env
+    # environment:
+    #   POSTGRES_DB: mydb
+    #   POSTGRES_USER: myuser
+    #   POSTGRES_PASSWORD: mypassword
+    #   POSTGRES_HOST: db
 
   db:
     image: postgres:15
+    restart: always
     environment:
       POSTGRES_DB: mydb
       POSTGRES_USER: myuser
