@@ -8,10 +8,7 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory in the container
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    netcat-openbsd \
-    python3-distutils \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies by copying requirements.txt first to leverage Docker layer caching
 COPY requirements.txt .

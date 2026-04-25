@@ -19,23 +19,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
-  nginx:
+  ngix:
     image: nginx:latest
     restart: always
     ports:
       - "80:80"
     volumes:
       - ./nginx:/etc/nginx/conf.d
-      - ./certbot/www:/var/www/certbot
-      - ./certbot/conf:/etc/letsencrypt
     depends_on:
       - web
-
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./certbot/www:/var/www/certbot
-      - ./certbot/conf:/etc/letsencrypt
 
 volumes:
   postgres_data:
