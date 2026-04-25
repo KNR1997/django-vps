@@ -4,7 +4,7 @@ services:
   web:
     build: .
     restart: always
-    expose:
+    ports:
       - "8000"
     env_file:
       - .env
@@ -24,19 +24,10 @@ services:
     restart: always
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./nginx:/etc/nginx/conf.d
-      - ./certbot/www:/var/www/certbot
-      - ./certbot/conf:/etc/letsencrypt
     depends_on:
       - web
-
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./certbot/www:/var/www/certbot
-      - ./certbot/conf:/etc/letsencrypt
 
 volumes:
   postgres_data:
